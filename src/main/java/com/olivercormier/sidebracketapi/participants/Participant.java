@@ -4,6 +4,10 @@ import lombok.Data;
 
 @Data
 public class Participant {
-    public int ID;
-    public int userID;
+    public int id;
+    public int userId;
+
+    public Participant(int userId) {
+        this.userId = userId;
+    }
 }
