@@ -61,5 +61,4 @@ public class UserDao implements Dao<User> {
         userHashMap.remove(id, user);
     }
 
-
 }
