@@ -4,6 +4,10 @@ import lombok.Data;
 
 @Data
 public class Organizer {
-    public int ID;
-    public int userID;
+    public int id;
+    public int userId;
+
+    public Organizer(int userId) {
+        this.userId = userId;
+    }
 }
