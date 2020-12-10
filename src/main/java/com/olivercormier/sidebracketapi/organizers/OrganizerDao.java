@@ -56,8 +56,7 @@ public class OrganizerDao implements Dao<Organizer> {
     }
 
     @Override
-    public void delete(Organizer organizer) {
-        int id = organizer.getId();
-        organizerHashMap.remove(id, organizer);
+    public void delete(int id) {
+        organizerHashMap.remove(id);
     }
 }

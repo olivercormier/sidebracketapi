@@ -56,8 +56,7 @@ public class GameDao implements Dao<Game> {
     }
 
     @Override
-    public void delete(Game game) {
-        int id = game.getId();
-        gameHashMap.remove(id, game);
+    public void delete(int id) {
+        gameHashMap.remove(id);
     }
 }

@@ -56,8 +56,7 @@ public class TournamentDao implements Dao<Tournament> {
     }
 
     @Override
-    public void delete(Tournament tournament) {
-        int id = tournament.getId();
-        tournamentHashMap.remove(id, tournament);
+    public void delete(int id) {
+        tournamentHashMap.remove(id);
     }
 }

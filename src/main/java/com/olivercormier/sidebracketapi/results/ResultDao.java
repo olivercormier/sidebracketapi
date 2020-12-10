@@ -56,8 +56,7 @@ public class ResultDao implements Dao<Result> {
     }
 
     @Override
-    public void delete(Result result) {
-        int id = result.getId();
-        resultHashMap.remove(id, result);
+    public void delete(int id) {
+        resultHashMap.remove(id);
     }
 }

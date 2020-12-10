@@ -56,8 +56,7 @@ public class ParticipantDao implements Dao<Participant> {
     }
 
     @Override
-    public void delete(Participant participant) {
-        int id = participant.getId();
-        participantHashMap.remove(id, participant);
+    public void delete(int id) {
+        participantHashMap.remove(id);
     }
 }

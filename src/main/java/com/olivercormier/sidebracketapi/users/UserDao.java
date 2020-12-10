@@ -56,9 +56,8 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public void delete(User user) {
-        int id = user.getId();
-        userHashMap.remove(id, user);
+    public void delete(int id) {
+        userHashMap.remove(id);
     }
 
 }
