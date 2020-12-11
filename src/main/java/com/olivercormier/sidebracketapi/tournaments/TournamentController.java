@@ -1,9 +1,14 @@
 package com.olivercormier.sidebracketapi.tournaments;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.olivercormier.sidebracketapi.users.User;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.Collection;
+import java.net.URI;
+import java.util.Optional;
 
 @RestController
 public class TournamentController {
@@ -14,8 +19,48 @@ public class TournamentController {
         this.tournaments = new TournamentDao();
     }
 
+    @GetMapping("/tournaments/{id}")
+    ResponseEntity<Object> read(@PathVariable("id") String id) {
+        Optional<Tournament> result = tournaments.get(Integer.parseInt(id));
+        if (result.isPresent()) {
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Tournament Record Not Found", HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/tournaments")
-    Collection<Tournament> all() {
-        return tournaments.getAll();
+    ResponseEntity<Object> all() {
+        return new ResponseEntity<>(tournaments.getAll(), HttpStatus.OK);
+    }
+
+    @PostMapping("/tournaments")
+    ResponseEntity<Object> create(@RequestBody Tournament tournament) {
+        HttpHeaders headers = new HttpHeaders();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(tournaments.save(tournament)).toUri();
+        headers.setLocation(location);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/tournaments/{id}")
+    ResponseEntity<Object> update(@PathVariable("id") String id, @RequestBody Tournament tournament) {
+        tournament.setId(Integer.parseInt(id));
+        tournaments.update(tournament);
+        HttpHeaders headers = new HttpHeaders();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(id).toUri();
+        headers.setLocation(location);
+        return new ResponseEntity<>(headers, HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/tournaments/{id}")
+    ResponseEntity<Object> delete(@PathVariable("id") String id) {
+        tournaments.delete(Integer.parseInt(id));
+        HttpHeaders headers = new HttpHeaders();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(id).toUri();
+        headers.setLocation(location);
+        return new ResponseEntity<>(headers, HttpStatus.NO_CONTENT);
     }
 }
