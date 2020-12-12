@@ -16,7 +16,7 @@ public class TournamentDao implements Dao<Tournament> {
         tournamentHashMap = new HashMap<Integer, Tournament>();
         add("Samsho Weekly #10", 1, 1);
         add("SFV Weekly #1", 1, 2);
-        add("Smash Weekly #100", 2, 4);
+        add("Smash Weekly #100", 2, 3);
     }
 
     private void add(String name, int organizerId, int gameId) {

@@ -16,7 +16,7 @@ public class ResultDao implements Dao<Result> {
         resultHashMap = new HashMap<Integer, Result>();
         add(1, 1, 1);
         add(1, 2, 2);
-        add(1, 3, 3);
+        add(2, 3, 1);
     }
 
     private void add(int tournamentId, int participantId, int placing) {

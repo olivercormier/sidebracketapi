@@ -21,17 +21,21 @@ public class TournamentController {
 
     @GetMapping("/tournaments/{id}")
     ResponseEntity<Object> read(@PathVariable("id") String id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccessControlAllowOrigin("*");
         Optional<Tournament> result = tournaments.get(Integer.parseInt(id));
         if (result.isPresent()) {
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result, headers, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Tournament Record Not Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Tournament Record Not Found", headers, HttpStatus.NOT_FOUND);
         }
     }
 
     @GetMapping("/tournaments")
     ResponseEntity<Object> all() {
-        return new ResponseEntity<>(tournaments.getAll(), HttpStatus.OK);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccessControlAllowOrigin("*");
+        return new ResponseEntity<>(tournaments.getAll(), headers, HttpStatus.OK);
     }
 
     @PostMapping("/tournaments")
@@ -40,6 +44,7 @@ public class TournamentController {
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(tournaments.save(tournament)).toUri();
         headers.setLocation(location);
+        headers.setAccessControlAllowOrigin("*");
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 

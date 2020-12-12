@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController
@@ -29,8 +30,14 @@ public class ResultController {
     }
 
     @GetMapping("/results")
-    ResponseEntity<Object> all() {
-        return new ResponseEntity<>(results.getAll(), HttpStatus.OK);
+    ResponseEntity<Object> all(@RequestParam(name = "tournamentId", required = false) String tournamentId) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccessControlAllowOrigin("*");
+        Collection<Result> allResults = results.getAll();
+        if (tournamentId != null && !tournamentId.trim().isEmpty()) {
+            allResults.removeIf(result -> result.getTournamentId() != Integer.parseInt(tournamentId));
+        }
+        return new ResponseEntity<>(allResults, headers, HttpStatus.OK);
     }
 
     @PostMapping("/results")

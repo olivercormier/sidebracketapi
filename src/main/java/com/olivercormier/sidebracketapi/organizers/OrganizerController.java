@@ -22,11 +22,13 @@ public class OrganizerController {
 
     @GetMapping("/organizers/{id}")
     ResponseEntity<Object> read(@PathVariable("id") String id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccessControlAllowOrigin("*");
         Optional<Organizer> result = organizers.get(Integer.parseInt(id));
         if (result.isPresent()) {
-            return new ResponseEntity<>(result, HttpStatus.OK);
+            return new ResponseEntity<>(result, headers, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Organizer Record Not Found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Organizer Record Not Found", headers, HttpStatus.NOT_FOUND);
         }
     }
 
