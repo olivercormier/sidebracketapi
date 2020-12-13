@@ -9,6 +9,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
@@ -32,8 +34,17 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    ResponseEntity<Object> all() {
-        return new ResponseEntity<>(users.getAll(), HttpStatus.OK);
+    ResponseEntity<Object> all(@RequestParam(name = "email", required = false) String email) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccessControlAllowOrigin("*");
+        Collection<User> allUsers = users.getAll();
+        if (email != null && !email.trim().isEmpty()) {
+            Predicate<User> streamsUser = item -> item.getEmail().equals(email);
+            return new ResponseEntity<>(allUsers.stream().filter(streamsUser).collect(Collectors.toList()),
+                    headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(users.getAll(), headers, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/users")
