@@ -9,6 +9,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @RestController
 public class ResultController {
@@ -35,9 +37,13 @@ public class ResultController {
         headers.setAccessControlAllowOrigin("*");
         Collection<Result> allResults = results.getAll();
         if (tournamentId != null && !tournamentId.trim().isEmpty()) {
-            allResults.removeIf(result -> result.getTournamentId() != Integer.parseInt(tournamentId));
+            Predicate<Result> streamsResult = item -> item.getTournamentId() == Integer.parseInt(tournamentId);
+            return new ResponseEntity<>(allResults.stream().filter(streamsResult).collect(Collectors.toList()),
+                    headers, HttpStatus.OK);
         }
-        return new ResponseEntity<>(allResults, headers, HttpStatus.OK);
+        else {
+            return new ResponseEntity<>(allResults, headers, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/results")

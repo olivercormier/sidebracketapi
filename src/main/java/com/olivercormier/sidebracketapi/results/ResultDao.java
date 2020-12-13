@@ -14,13 +14,13 @@ public class ResultDao implements Dao<Result> {
     public ResultDao() {
         idCounter = 0;
         resultHashMap = new HashMap<Integer, Result>();
-        add(1, 1, 1);
-        add(1, 2, 2);
-        add(2, 3, 1);
+        add(1, "Oliver", 1);
+        add(1, "Tim", 2);
+        add(2, "Joe", 1);
     }
 
-    private void add(int tournamentId, int participantId, int placing) {
-        Result result = new Result(tournamentId, participantId, placing);
+    private void add(int tournamentId, String participantName, int placing) {
+        Result result = new Result(tournamentId, participantName, placing);
         this.save(result);
     }
 

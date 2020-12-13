@@ -14,13 +14,13 @@ public class ParticipantDao implements Dao<Participant> {
     public ParticipantDao() {
         idCounter = 0;
         participantHashMap = new HashMap<Integer, Participant>();
-        add(1);
-        add(2);
-        add(3);
+        add(1, "Oliver");
+        add(2, "Tim");
+        add(3, "Joe");
     }
 
-    private void add(int userId) {
-        Participant participant = new Participant(userId);
+    private void add(int userId, String name) {
+        Participant participant = new Participant(userId, name);
         this.save(participant);
     }
 

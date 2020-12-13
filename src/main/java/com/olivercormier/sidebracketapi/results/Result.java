@@ -5,12 +5,13 @@ import lombok.Data;
 @Data
 public class Result {
     public int id;
-    public int tournamentId, participantId;
+    public int tournamentId;
+    public String participantName;
     public int placing;
 
-    public Result(int tournamentId, int participantId, int placing) {
+    public Result(int tournamentId, String participantName, int placing) {
         this.tournamentId = tournamentId;
-        this.participantId = participantId;
+        this.participantName = participantName;
         this.placing = placing;
     }
 }
