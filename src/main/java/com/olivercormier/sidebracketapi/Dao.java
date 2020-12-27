@@ -7,7 +7,7 @@ public interface Dao<T> {
 
     Optional<T> get(int id);
     Collection<T> getAll();
-    int save(T t);
+    T save(T t);
     void update(T t);
     void delete(int id);
 }

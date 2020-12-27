@@ -1,6 +1,7 @@
 package com.olivercormier.sidebracketapi.results;
 
 import com.olivercormier.sidebracketapi.Dao;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,11 +43,11 @@ public class ResultDao implements Dao<Result> {
     }
 
     @Override
-    public int save(Result result) {
+    public Result save(Result result) {
         idCounter += 1;
         result.setId(idCounter);
         resultHashMap.put(idCounter, result);
-        return idCounter;
+        return result;
     }
 
     @Override

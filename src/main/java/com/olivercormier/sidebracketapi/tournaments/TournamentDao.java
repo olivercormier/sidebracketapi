@@ -42,11 +42,11 @@ public class TournamentDao implements Dao<Tournament> {
     }
 
     @Override
-    public int save(Tournament tournament) {
+    public Tournament save(Tournament tournament) {
         idCounter += 1;
         tournament.setId(idCounter);
         tournamentHashMap.put(idCounter, tournament);
-        return idCounter;
+        return tournament;
     }
 
     @Override

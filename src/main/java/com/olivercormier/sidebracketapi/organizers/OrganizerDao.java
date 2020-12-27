@@ -42,11 +42,11 @@ public class OrganizerDao implements Dao<Organizer> {
     }
 
     @Override
-    public int save(Organizer organizer) {
+    public Organizer save(Organizer organizer) {
         idCounter += 1;
         organizer.setId(idCounter);
         organizerHashMap.put(idCounter, organizer);
-        return idCounter;
+        return organizer;
     }
 
     @Override

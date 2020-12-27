@@ -42,11 +42,11 @@ public class ParticipantDao implements Dao<Participant> {
     }
 
     @Override
-    public int save(Participant participant) {
+    public Participant save(Participant participant) {
         idCounter += 1;
         participant.setId(idCounter);
         participantHashMap.put(idCounter, participant);
-        return idCounter;
+        return participant;
     }
 
     @Override

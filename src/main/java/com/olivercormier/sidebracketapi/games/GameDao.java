@@ -42,11 +42,11 @@ public class GameDao implements Dao<Game> {
     }
 
     @Override
-    public int save(Game game) {
+    public Game save(Game game) {
         idCounter += 1;
         game.setId(idCounter);
         gameHashMap.put(idCounter, game);
-        return idCounter;
+        return game;
     }
 
     @Override

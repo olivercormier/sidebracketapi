@@ -1,5 +1,6 @@
 package com.olivercormier.sidebracketapi.users;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,11 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private UserDao users;
+
+    private User user1;
+
+    @Autowired
+    public UserRepository userRepository;
 
     public UserController() {
         this.users = new UserDao();
@@ -37,28 +43,33 @@ public class UserController {
     ResponseEntity<Object> all(@RequestParam(name = "email", required = false) String email) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccessControlAllowOrigin("*");
-        Collection<User> allUsers = users.getAll();
+        Collection<User> allUsers = userRepository.findAll();
         if (email != null && !email.trim().isEmpty()) {
             Predicate<User> streamsUser = item -> item.getEmail().equals(email);
             return new ResponseEntity<>(allUsers.stream().filter(streamsUser).collect(Collectors.toList()),
                     headers, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(users.getAll(), headers, HttpStatus.OK);
+            return new ResponseEntity<>(allUsers, headers, HttpStatus.OK);
         }
     }
 
     @PostMapping("/users")
     ResponseEntity<Object> create(@RequestBody User user) {
         HttpHeaders headers = new HttpHeaders();
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(users.save(user)).toUri();
-        headers.setLocation(location);
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        //URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+        //        .path("/{id}").buildAndExpand(users.save(user)).toUri();
+        //headers.setLocation(location);
+        System.out.println(user.toString());
+        user1 = userRepository.save(user);
+        if (user1 != null) {
+            return new ResponseEntity<>(headers, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(headers, HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/users/{id}")
     ResponseEntity<Object> update(@PathVariable("id") String id, @RequestBody User user) {
-        user.setId(Integer.parseInt(id));
+        //user.setId(Integer.parseInt(id));
         users.update(user);
         HttpHeaders headers = new HttpHeaders();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
