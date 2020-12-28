@@ -1,4 +1,4 @@
-package com.olivercormier.sidebracketapi.tournaments;
+/*package com.olivercormier.sidebracketapi.tournaments;
 
 import com.olivercormier.sidebracketapi.Dao;
 
@@ -44,19 +44,19 @@ public class TournamentDao implements Dao<Tournament> {
     @Override
     public Tournament save(Tournament tournament) {
         idCounter += 1;
-        tournament.setId(idCounter);
+        //tournament.setId(idCounter);
         tournamentHashMap.put(idCounter, tournament);
         return tournament;
     }
 
     @Override
     public void update(Tournament tournament) {
-        int id = tournament.getId();
-        tournamentHashMap.put(id, tournament);
+        //int id = tournament.getId();
+        //tournamentHashMap.put(id, tournament);
     }
 
     @Override
     public void delete(int id) {
         tournamentHashMap.remove(id);
     }
-}
+}*/

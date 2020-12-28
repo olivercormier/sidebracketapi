@@ -1,4 +1,4 @@
-package com.olivercormier.sidebracketapi.users;
+/*package com.olivercormier.sidebracketapi.users;
 
 import com.olivercormier.sidebracketapi.Dao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +19,11 @@ public class UserDao implements Dao<User> {
     private User user1;
 
     public UserDao() {
-        /*idCounter = 0;
+        idCounter = 0;
         userHashMap = new HashMap<Integer, User>();
         add("Oliver", "Password", "Oliver@email.com");
         add("Tim", "Pass", "Tim@email.com");
-        add("Joe", "Test", "Joe@email.com"); */
+        add("Joe", "Test", "Joe@email.com");
     }
 
     private void add(String username, String password, String email) {
@@ -74,4 +74,4 @@ public class UserDao implements Dao<User> {
         userHashMap.remove(id);
     }
 
-}
+}*/

@@ -1,6 +1,7 @@
 package com.olivercormier.sidebracketapi.tournaments;
 
 import com.olivercormier.sidebracketapi.users.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +14,20 @@ import java.util.Optional;
 @RestController
 public class TournamentController {
 
-    private TournamentDao tournaments;
+    //private TournamentDao tournaments;
+
+    @Autowired
+    public TournamentRepository tournamentRepository;
 
     public TournamentController() {
-        this.tournaments = new TournamentDao();
+        //this.tournaments = new TournamentDao();
     }
 
     @GetMapping("/tournaments/{id}")
     ResponseEntity<Object> read(@PathVariable("id") String id) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccessControlAllowOrigin("*");
-        Optional<Tournament> result = tournaments.get(Integer.parseInt(id));
+        Optional<Tournament> result = tournamentRepository.findById(id);
         if (result.isPresent()) {
             return new ResponseEntity<>(result, headers, HttpStatus.OK);
         } else {
@@ -35,14 +39,16 @@ public class TournamentController {
     ResponseEntity<Object> all() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccessControlAllowOrigin("*");
-        return new ResponseEntity<>(tournaments.getAll(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(tournamentRepository.findAll(), headers, HttpStatus.OK);
     }
 
     @PostMapping("/tournaments")
-    ResponseEntity<Object> create(@RequestBody Tournament tournament) {
+    ResponseEntity<Object> create(@RequestParam(name = "tournamentName") String tournamentName,
+                                  @RequestParam(name = "gameName") String gameName) {
+        Tournament tournament = new Tournament(tournamentName, 1, 1);
         HttpHeaders headers = new HttpHeaders();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(tournaments.save(tournament)).toUri();
+                .path("/{id}").buildAndExpand(tournamentRepository.save(tournament)).toUri();
         headers.setLocation(location);
         headers.setAccessControlAllowOrigin("*");
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
@@ -50,8 +56,8 @@ public class TournamentController {
 
     @PutMapping("/tournaments/{id}")
     ResponseEntity<Object> update(@PathVariable("id") String id, @RequestBody Tournament tournament) {
-        tournament.setId(Integer.parseInt(id));
-        tournaments.update(tournament);
+        //tournament.setId(Integer.parseInt(id));
+        //tournaments.update(tournament);
         HttpHeaders headers = new HttpHeaders();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id).toUri();
@@ -61,7 +67,7 @@ public class TournamentController {
 
     @DeleteMapping("/tournaments/{id}")
     ResponseEntity<Object> delete(@PathVariable("id") String id) {
-        tournaments.delete(Integer.parseInt(id));
+        //tournaments.delete(Integer.parseInt(id));
         HttpHeaders headers = new HttpHeaders();
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id).toUri();

@@ -1,7 +1,6 @@
 package com.olivercormier.sidebracketapi.security;
 
 import com.olivercormier.sidebracketapi.users.User;
-import com.olivercormier.sidebracketapi.users.UserDao;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RestController
 public class LoginController {
-
+/*
     @GetMapping("/login")
     ResponseEntity<Object> login(@RequestParam(name = "email") String email,
                                  @RequestParam(name = "password") String password) {
@@ -37,5 +36,5 @@ public class LoginController {
             }
         }
         return new ResponseEntity<>("Invalid Credentials", headers, HttpStatus.UNAUTHORIZED);
-    }
+    } */
 }

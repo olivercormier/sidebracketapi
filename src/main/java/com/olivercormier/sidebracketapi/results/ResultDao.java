@@ -1,4 +1,4 @@
-package com.olivercormier.sidebracketapi.results;
+/*package com.olivercormier.sidebracketapi.results;
 
 import com.olivercormier.sidebracketapi.Dao;
 import org.springframework.http.ResponseEntity;
@@ -45,15 +45,15 @@ public class ResultDao implements Dao<Result> {
     @Override
     public Result save(Result result) {
         idCounter += 1;
-        result.setId(idCounter);
+        //result.setId(idCounter);
         resultHashMap.put(idCounter, result);
         return result;
     }
 
     @Override
     public void update(Result result) {
-        int id = result.getId();
-        resultHashMap.put(id, result);
+        //int id = result.getId();
+        //resultHashMap.put(id, result);
     }
 
     @Override
@@ -61,3 +61,4 @@ public class ResultDao implements Dao<Result> {
         resultHashMap.remove(id);
     }
 }
+*/
