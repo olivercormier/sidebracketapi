@@ -16,14 +16,10 @@ import java.util.stream.Collectors;
 @RestController
 public class ResultController {
 
-    //private ResultDao results;
-
     @Autowired
     public ResultRepository resultRepository;
 
-    public ResultController() {
-        //this.results = new ResultDao();
-    }
+    public ResultController() {}
 
     @GetMapping("/results/{id}")
     ResponseEntity<Object> read(@PathVariable("id") String id) {

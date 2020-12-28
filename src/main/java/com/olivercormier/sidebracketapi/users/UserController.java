@@ -17,16 +17,12 @@ import java.util.stream.Collectors;
 @RestController
 public class UserController {
 
-    //private UserDao users;
-
     private User checkUser;
 
     @Autowired
     public UserRepository userRepository;
 
-    public UserController() {
-        //this.users = new UserDao();
-    }
+    public UserController() {}
 
     @GetMapping("/users/{id}")
     ResponseEntity<Object> read(@PathVariable("id") String id) {

@@ -1,6 +1,5 @@
 package com.olivercormier.sidebracketapi.tournaments;
 
-import com.olivercormier.sidebracketapi.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,14 +13,10 @@ import java.util.Optional;
 @RestController
 public class TournamentController {
 
-    //private TournamentDao tournaments;
-
     @Autowired
     public TournamentRepository tournamentRepository;
 
-    public TournamentController() {
-        //this.tournaments = new TournamentDao();
-    }
+    public TournamentController() {}
 
     @GetMapping("/tournaments/{id}")
     ResponseEntity<Object> read(@PathVariable("id") String id) {
