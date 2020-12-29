@@ -12,7 +12,7 @@ for the Side Bracket application.
 
 * Open terminal
 * Clone this repository
-    * Git clone https://github.com/olivercormier/sidebracketapi.git
+    * git clone https://github.com/olivercormier/sidebracketapi.git
 * cd sidebracketapi
 * mvn -U package
 
